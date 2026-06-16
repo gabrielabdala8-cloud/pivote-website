@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pivote — Data, Automation & Dashboards for Small Business</title>
+  <meta name="description" content="Pivote helps small Quebec businesses unlock the power of their data with simple automation, clear dashboards, and expert guidance — no technical background required." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --gray-50: #f8f8f6;
+      --gray-100: #f0f0ec;
+      --gray-200: #e2e2dc;
+      --gray-400: #9e9e96;
+      --gray-600: #5a5a54;
+      --gray-800: #2c2c28;
+      --accent: #5B4FE8;
+      --accent-light: #ede9ff;
+      --accent-mid: #7b71ef;
+      --teal: #0ea97a;
+      --teal-light: #e0f5ee;
+      --amber: #d97706;
+      --amber-light: #fef3c7;
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --radius: 10px;
+      --radius-lg: 16px;
+      --max-w: 1100px;
+      --transition: 0.2s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--gray-800);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* LANG TOGGLE */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--gray-100);
+      border-radius: 8px;
+      padding: 3px;
+    }
+    .lang-btn {
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      color: var(--gray-400);
+      font-family: var(--font-body);
+      transition: all var(--transition);
+    }
+    .lang-btn.active {
+      background: var(--white);
+      color: var(--black);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--black);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.9rem;
+      color: var(--gray-600);
+      font-weight: 500;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--black); }
+    .btn-nav {
+      background: var(--accent);
+      color: var(--white) !important;
+      padding: 0.45rem 1.1rem;
+      border-radius: 8px;
+      font-size: 0.875rem !important;
+      transition: background var(--transition) !important;
+    }
+    .btn-nav:hover { background: #4a3fd6 !important; }
+
+    /* SECTIONS */
+    section { padding: 6rem 2rem; }
+    .container { max-width: var(--max-w); margin: 0 auto; }
+
+    /* HERO */
+    #hero {
+      padding-top: 9rem;
+      padding-bottom: 6rem;
+      background: var(--black);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(91,79,232,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: -100px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(14,169,122,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-mid);
+      margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--accent-mid);
+    }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      color: var(--white);
+      max-width: 800px;
+      margin-bottom: 1.5rem;
+    }
+    h1 em { font-style: normal; color: var(--accent-mid); }
+    .hero-sub {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.6);
+      max-width: 560px;
+      margin-bottom: 2.5rem;
+      line-height: 1.65;
+    }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: var(--white);
+      padding: 0.8rem 1.6rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .btn-primary:hover { background: #4a3fd6; transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.85);
+      padding: 0.8rem 1.6rem;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.15);
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: background var(--transition);
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.14); }
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 4rem;
+      padding-top: 3rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      flex-wrap: wrap;
+    }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .stat-label { font-size: 0.85rem; color: rgba(255,255,255,0.45); margin-top: 2px; }
+
+    /* SERVICES */
+    #services { background: var(--gray-50); }
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: var(--black);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .section-intro {
+      font-size: 1.05rem;
+      color: var(--gray-600);
+      max-width: 560px;
+      margin-bottom: 3.5rem;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .service-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .service-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      font-size: 1.4rem;
+    }
+    .icon-purple { background: var(--accent-light); }
+    .icon-teal { background: var(--teal-light); }
+    .icon-amber { background: var(--amber-light); }
+    .service-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 0.5rem;
+    }
+    .service-card p { font-size: 0.9rem; color: var(--gray-600); line-height: 1.65; }
+
+    /* HOW */
+    #how { background: var(--white); }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem; margin-top: 3rem; }
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--gray-100);
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+    .step h3 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 0.5rem;
+    }
+    .step p { font-size: 0.9rem; color: var(--gray-600); }
+
+    /* ABOUT */
+    #about { background: var(--gray-50); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .tag {
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 100px;
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+    .about-visual {
+      background: var(--black);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      color: var(--white);
+    }
+    .terminal-bar { display: flex; gap: 6px; margin-bottom: 1.5rem; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-r { background: #ff5f57; }
+    .dot-y { background: #febc2e; }
+    .dot-g { background: #28c840; }
+    .terminal-line { font-family: monospace; font-size: 0.82rem; margin-bottom: 0.5rem; }
+    .t-muted { color: rgba(255,255,255,0.35); }
+    .t-green { color: #34d399; }
+    .t-purple { color: #a78bfa; }
+    .t-white { color: rgba(255,255,255,0.9); }
+
+    /* CONTACT */
+    #contact { background: var(--black); color: var(--white); }
+    #contact h2 { color: var(--white); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .contact-sub { color: rgba(255,255,255,0.55); font-size: 1rem; margin-bottom: 2rem; }
+    .contact-detail { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 1.25rem; }
+    .contact-detail-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.07);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 1rem;
+    }
+    .contact-detail-text { font-size: 0.9rem; }
+    .contact-detail-label { color: rgba(255,255,255,0.4); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+    .contact-detail-value { color: rgba(255,255,255,0.85); margin-top: 2px; }
+    form { display: flex; flex-direction: column; gap: 1rem; }
+    label { font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 0.05em; text-transform: uppercase; }
+    input, textarea, select {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      padding: 0.75rem 1rem;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color var(--transition);
+    }
+    input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.25); }
+    input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+    select option { background: #1a1a1a; }
+    textarea { resize: vertical; min-height: 110px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .btn-submit {
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.85rem 1.5rem;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .btn-submit:hover { background: #4a3fd6; }
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      background: rgba(14,169,122,0.1);
+      border: 1px solid rgba(14,169,122,0.3);
+      border-radius: var(--radius-lg);
+      color: #34d399;
+      font-size: 0.95rem;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #060606;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.25);
+    }
+    footer a { color: rgba(255,255,255,0.35); text-decoration: none; }
+    footer a:hover { color: rgba(255,255,255,0.6); }
+
+    /* MOBILE */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--black); border-radius: 2px; }
+
+    @media (max-width: 720px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+    @media (max-width: 640px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 64px; left: 0; right: 0;
+        background: var(--white);
+        flex-direction: column;
+        padding: 1.5rem 2rem;
+        gap: 1.25rem;
+        border-bottom: 1px solid var(--gray-100);
+      }
+      .nav-links.open { display: flex; }
+      .hero-stats { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">Piv<span>o</span>te</a>
+    <div class="nav-right">
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#services" data-en="Services" data-fr="Services">Services</a></li>
+        <li><a href="#how" data-en="Process" data-fr="Processus">Process</a></li>
+        <li><a href="#about" data-en="About" data-fr="À propos">About</a></li>
+        <li><a href="#contact" class="btn-nav" data-en="Get a free audit →" data-fr="Audit gratuit →">Get a free audit →</a></li>
+      </ul>
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" id="btn-fr" onclick="setLang('fr')">FR</button>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-eyebrow" data-en="Montreal, Quebec · Est. 2025" data-fr="Montréal, Québec · Fondée en 2025">Montreal, Quebec · Est. 2025</div>
+    <h1 data-en="Your data is talking.<br><em>We help you listen.</em>" data-fr="Vos données parlent.<br><em>On vous aide à les écouter.</em>">Your data is talking.<br><em>We help you listen.</em></h1>
+    <p class="hero-sub" data-en="Pivote brings data analytics, automation, and clear dashboards to small businesses — with no tech expertise required on your end. Just results." data-fr="Pivote apporte l'analytique de données, l'automatisation et des tableaux de bord clairs aux petites entreprises — sans expertise technique de votre côté. Juste des résultats.">Pivote brings data analytics, automation, and clear dashboards to small businesses — with no tech expertise required on your end. Just results.</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-primary" data-en="Get a free audit →" data-fr="Obtenir un audit gratuit →">Get a free audit →</a>
+      <a href="#services" class="btn-ghost" data-en="See what we do" data-fr="Voir ce qu'on fait">See what we do</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">3×</div>
+        <div class="stat-label" data-en="Average time saved on reporting" data-fr="Temps moyen économisé sur les rapports">Average time saved on reporting</div>
+      </div>
+      <div>
+        <div class="stat-num">100%</div>
+        <div class="stat-label" data-en="Plain-language explanations" data-fr="Explications en langage clair">Plain-language explanations</div>
+      </div>
+      <div>
+        <div class="stat-num">PME</div>
+        <div class="stat-label" data-en="Focused — not for enterprise" data-fr="Pour les petites entreprises, pas les grandes">Focused — not for enterprise</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <p class="section-label" data-en="What we do" data-fr="Ce qu'on fait">What we do</p>
+    <h2 data-en="Three problems we solve." data-fr="Trois problèmes qu'on règle.">Three problems we solve.</h2>
+    <p class="section-intro" data-en="Most small businesses have data scattered everywhere and no clear picture. We fix that — quickly, affordably, in plain French or English." data-fr="La plupart des PME ont leurs données éparpillées partout, sans vue d'ensemble. On règle ça — rapidement, à prix abordable, en français ou en anglais.">Most small businesses have data scattered everywhere and no clear picture. We fix that — quickly, affordably, in plain French or English.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon icon-purple">📊</div>
+        <h3 data-en="Dashboards & Reporting" data-fr="Tableaux de bord & Rapports">Dashboards & Reporting</h3>
+        <p data-en="We build clear, live dashboards that show you what's actually happening in your business — sales, inventory, ops — without you needing to touch a spreadsheet." data-fr="On crée des tableaux de bord clairs et en temps réel qui montrent ce qui se passe vraiment dans votre entreprise — ventes, inventaire, opérations — sans toucher à un chiffrier.">We build clear, live dashboards that show you what's actually happening in your business — sales, inventory, ops — without you needing to touch a spreadsheet.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon icon-teal">⚙️</div>
+        <h3 data-en="Process Automation" data-fr="Automatisation des processus">Process Automation</h3>
+        <p data-en="Repetitive tasks cost you hours every week. We identify and automate them — from data entry to reports to notifications — so your team can focus on what matters." data-fr="Les tâches répétitives vous coûtent des heures chaque semaine. On les identifie et les automatise — de la saisie de données aux rapports — pour que votre équipe se concentre sur l'essentiel.">Repetitive tasks cost you hours every week. We identify and automate them — from data entry to reports to notifications — so your team can focus on what matters.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon icon-amber">🧠</div>
+        <h3 data-en="Data Strategy & CRM" data-fr="Stratégie de données & CRM">Data Strategy & CRM</h3>
+        <p data-en="We help you connect your tools — CRM, spreadsheets, logistics systems — into a single source of truth. Better data in, better decisions out." data-fr="On connecte vos outils — CRM, chiffriers, systèmes logistiques — en une seule source de vérité. Meilleures données, meilleures décisions.">We help you connect your tools — CRM, spreadsheets, logistics systems — into a single source of truth. Better data in, better decisions out.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="container">
+    <p class="section-label" data-en="How it works" data-fr="Comment ça fonctionne">How it works</p>
+    <h2 data-en="Simple from day one." data-fr="Simple dès le départ.">Simple from day one.</h2>
+    <p class="section-intro" data-en="No jargon. No 6-month projects. We start with a free audit and move fast on what delivers real value first." data-fr="Pas de jargon. Pas de projets de 6 mois. On commence par un audit gratuit et on agit vite sur ce qui crée de la valeur réelle.">No jargon. No 6-month projects. We start with a free audit and move fast on what delivers real value first.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3 data-en="Free Data Audit" data-fr="Audit de données gratuit">Free Data Audit</h3>
+        <p data-en="We spend 30 minutes learning your business and mapping your data pain points. You walk away with clarity — even if we never work together." data-fr="On passe 30 minutes à comprendre votre entreprise et à cartographier vos défis de données. Vous repartez avec de la clarté — même si on ne travaille jamais ensemble.">We spend 30 minutes learning your business and mapping your data pain points. You walk away with clarity — even if we never work together.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3 data-en="Quick-Win Project" data-fr="Projet à impact rapide">Quick-Win Project</h3>
+        <p data-en="We deliver one clear, high-impact solution in 2–3 weeks. A dashboard. An automation. A connected report. Something you can see and use immediately." data-fr="On livre une solution claire et à fort impact en 2–3 semaines. Un tableau de bord. Une automatisation. Un rapport connecté. Quelque chose de concret et utilisable immédiatement.">We deliver one clear, high-impact solution in 2–3 weeks. A dashboard. An automation. A connected report. Something you can see and use immediately.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3 data-en="Ongoing Partnership" data-fr="Partenariat continu">Ongoing Partnership</h3>
+        <p data-en="If you want more, we can stay involved as your on-call data partner — maintaining, improving, and expanding as your business grows." data-fr="Si vous voulez aller plus loin, on reste impliqués comme partenaire de données à la demande — on maintient, améliore et élargit au rythme de votre croissance.">If you want more, we can stay involved as your on-call data partner — maintaining, improving, and expanding as your business grows.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <p class="section-label" data-en="About Pivote" data-fr="À propos de Pivote">About Pivote</p>
+        <h2 data-en="Built by a data professional who gets business." data-fr="Créé par un professionnel des données qui comprend les affaires.">Built by a data professional who gets business.</h2>
+        <p style="color: var(--gray-600); font-size: 0.95rem; margin-bottom: 1rem;" data-en="Pivote is a Montreal-based boutique data consultancy for small businesses that want real insights without hiring a full data team." data-fr="Pivote est une firme de consultation en données basée à Montréal, pour les PME qui veulent de vraies réponses sans embaucher une équipe complète.">Pivote is a Montreal-based boutique data consultancy for small businesses that want real insights without hiring a full data team.</p>
+        <p style="color: var(--gray-600); font-size: 0.95rem;" data-en="We combine deep technical expertise in data analytics, automation, and business intelligence with a clear focus on practical outcomes — not impressive slides." data-fr="On combine une expertise technique approfondie en analytique, automatisation et intelligence d'affaires avec un focus sur les résultats concrets — pas les beaux PowerPoints.">We combine deep technical expertise in data analytics, automation, and business intelligence with a clear focus on practical outcomes — not impressive slides.</p>
+        <div class="about-tags">
+          <span class="tag">Tableau & Power BI</span>
+          <span class="tag">SQL & Python</span>
+          <span class="tag">CRM Integration</span>
+          <span class="tag">Process Automation</span>
+          <span class="tag" data-en="Bilingual FR/EN" data-fr="Bilingue FR/AN">Bilingual FR/EN</span>
+          <span class="tag" data-en="Montreal-based" data-fr="Basé à Montréal">Montreal-based</span>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="terminal-bar">
+          <div class="dot dot-r"></div>
+          <div class="dot dot-y"></div>
+          <div class="dot dot-g"></div>
+        </div>
+        <div class="terminal-line t-muted" data-en="# pivote audit — client: Boulangerie Martin" data-fr="# audit pivote — client : Boulangerie Martin"># pivote audit — client: Boulangerie Martin</div>
+        <div class="terminal-line t-green" data-en="✓ Connected POS data to reporting layer" data-fr="✓ Données du PDV connectées aux rapports">✓ Connected POS data to reporting layer</div>
+        <div class="terminal-line t-green" data-en="✓ Automated weekly sales summary" data-fr="✓ Résumé hebdomadaire des ventes automatisé">✓ Automated weekly sales summary</div>
+        <div class="terminal-line t-green" data-en="✓ Built live inventory dashboard" data-fr="✓ Tableau de bord d'inventaire en temps réel créé">✓ Built live inventory dashboard</div>
+        <div class="terminal-line" style="margin-top: 1rem;">
+          <span class="t-purple">temps_économisé</span><span class="t-white"> = </span><span class="t-green">"~4 hrs/semaine"</span>
+        </div>
+        <div class="terminal-line">
+          <span class="t-purple">visibilité</span><span class="t-white"> = </span><span class="t-green">"complète"</span>
+        </div>
+        <div class="terminal-line" style="margin-top: 1rem;">
+          <span class="t-muted" data-en="→ Client focus: baking, not spreadsheets." data-fr="→ Le client se concentre sur la boulangerie, pas les chiffriers.">→ Client focus: baking, not spreadsheets.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <p class="section-label" style="color: var(--accent-mid);" data-en="Get in touch" data-fr="Contactez-nous">Get in touch</p>
+        <h2 data-en="Let's talk about your data." data-fr="Parlons de vos données.">Let's talk about your data.</h2>
+        <p class="contact-sub" data-en="Book a free 30-minute audit. No commitment, no pitch — just a real conversation about where your business stands and where it could go." data-fr="Réservez un audit gratuit de 30 minutes. Sans engagement, sans pitch — juste une vraie conversation sur où en est votre entreprise et où elle pourrait aller.">Book a free 30-minute audit. No commitment, no pitch — just a real conversation about where your business stands and where it could go.</p>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📍</div>
+          <div class="contact-detail-text">
+            <div class="contact-detail-label" data-en="Location" data-fr="Emplacement">Location</div>
+            <div class="contact-detail-value">Montréal, Québec, Canada</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🌐</div>
+          <div class="contact-detail-text">
+            <div class="contact-detail-label" data-en="Languages" data-fr="Langues">Languages</div>
+            <div class="contact-detail-value" data-en="French & English" data-fr="Français & Anglais">French & English</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">⚡</div>
+          <div class="contact-detail-text">
+            <div class="contact-detail-label" data-en="Response time" data-fr="Délai de réponse">Response time</div>
+            <div class="contact-detail-value" data-en="Within 24 hours" data-fr="En moins de 24 heures">Within 24 hours</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <form id="contact-form">
+          <div class="form-group">
+            <label data-en="Your name" data-fr="Votre nom">Your name</label>
+            <input type="text" name="name" data-placeholder-en="Marie Tremblay" data-placeholder-fr="Marie Tremblay" placeholder="Marie Tremblay" required />
+          </div>
+          <div class="form-group">
+            <label data-en="Email address" data-fr="Adresse courriel">Email address</label>
+            <input type="email" name="email" data-placeholder-en="marie@monentreprise.ca" data-placeholder-fr="marie@monentreprise.ca" placeholder="marie@monentreprise.ca" required />
+          </div>
+          <div class="form-group">
+            <label data-en="Type of business" data-fr="Type d'entreprise">Type of business</label>
+            <select name="business">
+              <option value="" data-en="Select your industry" data-fr="Choisir votre secteur">Select your industry</option>
+              <option data-en="Retail / Commerce de détail" data-fr="Commerce de détail">Retail / Commerce de détail</option>
+              <option data-en="Restaurant / Food Service" data-fr="Restaurant / Restauration">Restaurant / Food Service</option>
+              <option data-en="Professional Services" data-fr="Services professionnels">Professional Services</option>
+              <option data-en="Construction / Trades" data-fr="Construction / Métiers">Construction / Trades</option>
+              <option data-en="Healthcare / Wellness" data-fr="Santé / Bien-être">Healthcare / Wellness</option>
+              <option data-en="Manufacturing" data-fr="Fabrication / Manufacture">Manufacturing</option>
+              <option data-en="Other" data-fr="Autre">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label data-en="What's your biggest data challenge?" data-fr="Quel est votre plus grand défi de données?">What's your biggest data challenge?</label>
+            <textarea name="message" data-placeholder-en="Ex: I have sales data everywhere but can't see the full picture..." data-placeholder-fr="Ex: J'ai des données de ventes partout mais je n'arrive pas à voir la vue d'ensemble..." placeholder="Ex: I have sales data everywhere but can't see the full picture..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit" data-en="Send message →" data-fr="Envoyer le message →">Send message →</button>
+        </form>
+        <div class="form-success" id="form-success" data-en="✓ Message sent! We'll get back to you within 24 hours." data-fr="✓ Message envoyé! On vous répond dans les 24 heures.">
+          ✓ Message sent! We'll get back to you within 24 hours.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Pivote — Montréal, Québec &nbsp;·&nbsp; <a href="mailto:hello@pivote.ca">hello@pivote.ca</a></p>
+</footer>
+
+<script>
+  // Mobile nav
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('nav-links');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Contact form
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    this.style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  });
+
+  // Language toggle
+  function setLang(lang) {
+    document.documentElement.setAttribute('data-lang', lang);
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+
+    document.querySelectorAll('[data-en]').forEach(el => {
+      const text = el.getAttribute('data-' + lang);
+      if (!text) return;
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') return;
+      if (el.innerHTML.includes('<')) {
+        el.innerHTML = text;
+      } else {
+        el.textContent = text;
+      }
+    });
+
+    // Placeholders
+    document.querySelectorAll('[data-placeholder-' + lang + ']').forEach(el => {
+      el.placeholder = el.getAttribute('data-placeholder-' + lang);
+    });
+
+    // Select options
+    document.querySelectorAll('select option').forEach(opt => {
+      const val = opt.getAttribute('data-' + lang);
+      if (val) opt.textContent = val;
+    });
+  }
+</script>
+</body>
+</html>
